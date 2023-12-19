@@ -131,3 +131,6 @@ dist
 
 # credentials to database
 config.js
+
+# todo.docx
+todo.docx
