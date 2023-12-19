@@ -6,27 +6,26 @@ require("dotenv").config();
 const connection = mysql.createConnection(process.env);
 
 // create an object that contains connection functions
-const database = {
-  save: async ({ location }) => {
+const wordsDB = {
+  saveWord: async ({ word, language }) => {
     return new Promise((resolve, reject) => {
-      const { latitude, longitude } = location;
       connection.query(
-        "INSERT INTO locations (latitude, longitude) VALUES (?, ?)",
-        [latitude, longitude],
+        `INSERT INTO ${language} (word) VALUES (?)`,
+        [word],
         (error, result) => {
           if (error) {
             reject(error);
           }
           resolve(
-            `New location with latitude ${latitude} and longitude ${longitude} added with id:  + ${result.insertId} `
+            `New word ${word} with id has been inserted: ${result.insertId} `
           );
         }
       );
     });
   },
-  findAll: async () => {
+  findAll: async ({ language }) => {
     return new Promise((resolve, reject) => {
-      connection.query("SELECT * FROM locations", (error, result) => {
+      connection.query(`SELECT * FROM ${language}`, (error, result) => {
         if (error) {
           reject(error);
         }
@@ -34,10 +33,10 @@ const database = {
       });
     });
   },
-  deleteById: async (id) => {
+  deleteById: async ({ id, language }) => {
     return new Promise((resolve, reject) => {
       connection.query(
-        "DELETE FROM locations WHERE id = ?",
+        `FROM ${language} WHERE id = ?`,
         [id],
         (error, result) => {
           if (error) {
@@ -51,7 +50,7 @@ const database = {
   findById: async (id) => {
     return new Promise((resolve, reject) => {
       connection.query(
-        "SELECT * FROM locations WHERE id = ?",
+        `SELECT * FROM ${language} WHERE id = ?`,
         [id],
         (error, result) => {
           if (error) {
