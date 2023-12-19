@@ -6,8 +6,8 @@ require("dotenv").config();
 const connection = mysql.createConnection(process.env);
 
 // create an object that contains connection functions
-const wordsDB = {
-  saveWord: async ({ word, language }) => {
+const database = {
+  save: async ({ word, language }) => {
     return new Promise((resolve, reject) => {
       connection.query(
         `INSERT INTO ${language} (word) VALUES (?)`,
