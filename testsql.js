@@ -1,5 +1,5 @@
 // UNDER CONSTRUCTION
-const connection = require("./crudrepository.js");
+const connection = require("./database/crudrepository.js");
 const readlineSync = require("readline-sync");
 
 const word = readlineSync.question("Enter word: ", {
@@ -12,24 +12,24 @@ const language = readlineSync.question("Enter language: ", {
 //perform crud operations
 const main = async () => {
   try {
-    await connection.connect().then(() => console.log("Connected to database"));
-    const findAllResult = await connection.findAll(language);
-    console.log(findAllResult);
-    //const resultSave = await connection.save();
-    //console.log(resultSave);
+    //const findAllResult = await connection.findAll(language);
+    //console.log(findAllResult);
+    const resultSave = await connection.save();
+    console.log(resultSave);
     //const resultFindById = await connection.findById();
     //console.log(resultFindById);
     //const resultDelete = await connection.deleteById();
     //console.log(resultDelete);
   } catch (err) {
     console.log(err);
-  } finally {
+  } /*finally {
     try {
       await connection.close().then(() => console.log("Connection closed"));
     } catch (err) {
       console.log(err);
     }
-  }
+    
+  }*/
 };
 
 main();
