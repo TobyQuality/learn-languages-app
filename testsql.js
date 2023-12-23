@@ -14,7 +14,7 @@ const main = async () => {
   try {
     //const findAllResult = await connection.findAll(language);
     //console.log(findAllResult);
-    const resultSave = await connection.save();
+    const resultSave = await connection.saveFinnish(word, language);
     console.log(resultSave);
     //const resultFindById = await connection.findById();
     //console.log(resultFindById);
@@ -28,7 +28,6 @@ const main = async () => {
     } catch (err) {
       console.log(err);
     }
-    
   }*/
 };
 

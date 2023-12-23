@@ -7,25 +7,9 @@ const connection = mysql.createConnection(process.env);
 
 // create an object that contains connection functions
 const database = {
-  save: async ({ word, language }) => {
+  findAllFinnish: async ({ language }) => {
     return new Promise((resolve, reject) => {
-      connection.query(
-        `INSERT INTO ? (word) VALUES (?)`,
-        [language, word],
-        (error, result) => {
-          if (error) {
-            reject(error);
-          }
-          resolve(
-            `New word ${word} with id has been inserted: ${result.insertId} `
-          );
-        }
-      );
-    });
-  },
-  findAll: async ({ language }) => {
-    return new Promise((resolve, reject) => {
-      connection.query(`SELECT * FROM finnish`, [language], (error, result) => {
+      connection.query(`SELECT * FROM ?`, [language], (error, result) => {
         if (error) {
           reject(error);
         }
@@ -33,24 +17,34 @@ const database = {
       });
     });
   },
-  deleteById: async ({ id, language }) => {
+  saveFinnish: async ({ word, language }) => {
     return new Promise((resolve, reject) => {
       connection.query(
-        `FROM ${language} WHERE id = ?`,
-        [id],
+        `INSERT INTO (?) (word) VALUES (?)`,
+        [language, word],
         (error, result) => {
           if (error) {
             reject(error);
           }
-          resolve("Deleted rows: " + result.affectedRows);
+          resolve(`New word ${word} with id has been inserted `);
         }
       );
     });
   },
-  findById: async (id) => {
+  deleteFinnishById: async ({ id, language }) => {
+    return new Promise((resolve, reject) => {
+      connection.query(`FROM finnish WHERE id = ?`, [id], (error, result) => {
+        if (error) {
+          reject(error);
+        }
+        resolve("Deleted rows: " + result.affectedRows);
+      });
+    });
+  },
+  findFinnishById: async (id) => {
     return new Promise((resolve, reject) => {
       connection.query(
-        `SELECT * FROM ${language} WHERE id = ?`,
+        `SELECT * FROM finnish WHERE id = ?`,
         [id],
         (error, result) => {
           if (error) {

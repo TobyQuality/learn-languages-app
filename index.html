@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Language CRUD</title>
+    <style>
+      /* Some basic styles for layout purposes */
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 20px;
+      }
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+      }
+      .input-group {
+        margin-bottom: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Language CRUD</h1>
+      <h2>Add New Location:</h2>
+      <div class="input-group">
+        <label for="locationName">Location Name:</label>
+        <input type="text" id="locationName" />
+      </div>
+      <div class="input-group">
+        <label for="locationType">Location Type:</label>
+        <input type="text" id="locationType" />
+      </div>
+      <button onclick="addLocation()">Add Location</button>
+
+      <hr />
+
+      <h2>Get Location by ID:</h2>
+      <div class="input-group">
+        <label for="locationId">Location ID:</label>
+        <input type="text" id="locationId" />
+      </div>
+      <button onclick="getLocation()">Get Location</button>
+
+      <hr />
+
+      <h2>Delete Location by ID:</h2>
+      <div class="input-group">
+        <label for="deleteId">Location ID:</label>
+        <input type="text" id="deleteId" />
+      </div>
+      <button onclick="deleteLocation()">Delete Location</button>
+
+      <div id="result"></div>
+    </div>
+
+    <script>
+      async function addLocation() {
+        const name = document.getElementById("locationName").value;
+        const type = document.getElementById("locationType").value;
+
+        const response = await fetch("/finnish", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ name, type }),
+        });
+
+        const resultDiv = document.getElementById("result");
+        resultDiv.innerText = await response.json();
+      }
+
+      async function getLocation() {
+        const id = document.getElementById("locationId").value;
+
+        const response = await fetch(`/finnish/${id}`, {
+          method: "GET",
+        });
+
+        const resultDiv = document.getElementById("result");
+        resultDiv.innerText = await response.json();
+      }
+
+      async function deleteLocation() {
+        const id = document.getElementById("deleteId").value;
+
+        const response = await fetch(`/finnish/${id}`, {
+          method: "DELETE",
+        });
+
+        const resultDiv = document.getElementById("result");
+        resultDiv.innerText = response.statusText;
+      }
+    </script>
+  </body>
+</html>
