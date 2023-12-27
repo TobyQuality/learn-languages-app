@@ -1,5 +1,5 @@
 const express = require("express");
-const locationsRouter = require("./routes/languages");
+const languagesRouter = require("./routes/languages");
 const port = 8080;
 const app = express();
 
@@ -7,32 +7,20 @@ const app = express();
 app.use(express.json());
 
 // Use the locationsRouter for all routes starting with /api/locations
-app.use("/api/languages", locationsRouter);
+app.use("/api/languages", languagesRouter);
 
 // use middleware to validate the request body
 app.use((req, res, next) => {
-  const location = req.body.location;
-  if (!location.latitude || !location.longitude) {
+  const word = req.body.word;
+  if (!word) {
     return res.status(400).json({
-      error: "Missing coordinates",
+      error: "Missing word",
     });
   }
-  // check if latitude and longitude are numbers
-  if (isNaN(location.latitude) || isNaN(location.longitude)) {
+  // check if word is a string
+  if (typeof word !== "string") {
     return res.status(400).json({
-      error: "Coordinates are not valid",
-    });
-  }
-  // check if latitude is within -90 and 90
-  if (location.latitude < -90 || location.latitude > 90) {
-    return res.status(400).json({
-      error: "Latitude is not valid",
-    });
-  }
-  // check if longitude is within -180 and 180
-  if (location.longitude < -180 || location.longitude > 180) {
-    return res.status(400).json({
-      error: "Longitude is not valid",
+      error: "word is not valid",
     });
   }
   next();
