@@ -1,5 +1,5 @@
 const express = require("express");
-const locationsRouter = require("./routes/locations");
+const locationsRouter = require("./routes/languages");
 const port = 8080;
 const app = express();
 
@@ -7,7 +7,7 @@ const app = express();
 app.use(express.json());
 
 // Use the locationsRouter for all routes starting with /api/locations
-app.use("/api/locations", locationsRouter);
+app.use("/api/languages", locationsRouter);
 
 // use middleware to validate the request body
 app.use((req, res, next) => {
