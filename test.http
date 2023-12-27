@@ -1,1 +1,11 @@
-get get http://localhost:8080/api/languages/finnish
+get http://localhost:8080/api/languages/finnish
+
+###
+
+post http://localhost:8080/api/languages/finnish
+Content-Type: application/json
+
+{
+    "language": "finnish",
+    "word": "terve",
+}

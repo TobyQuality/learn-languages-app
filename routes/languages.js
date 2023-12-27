@@ -1,7 +1,10 @@
+const express = require("express");
+const database = require("../database/crudrepository");
+
 const languagesRouter = express.Router();
 
 languagesRouter.get("/finnish", async (req, res) => {
-  const languages = await database.findAll(req.languages);
+  const languages = await database.findAllFinnish();
   return res.json(languages);
 });
 

@@ -8,9 +8,9 @@ const connection = mysql.createConnection(process.env);
 // create an object that contains connection functions
 const database = {
   // function to save a new word to the database
-  findAllFinnish: async ({ language }) => {
+  findAllFinnish: async () => {
     return new Promise((resolve, reject) => {
-      connection.query(`SELECT * FROM ?`, [language], (error, result) => {
+      connection.query(`SELECT * FROM finnish`, (error, result) => {
         if (error) {
           reject(error);
         }

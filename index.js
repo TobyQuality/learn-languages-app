@@ -1,7 +1,8 @@
 const express = require("express");
 const languagesRouter = require("./routes/languages");
-const port = 8080;
+const port = process.env.PORT || 8080;
 const app = express();
+const cors = require("cors");
 
 // Use the express.json() middleware to parse the request body
 app.use(express.json());
