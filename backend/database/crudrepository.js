@@ -24,7 +24,7 @@ const database = {
       });
     });
   },
-  saveFinnish: async ({ language, word }) => {
+  save: async ({ language, word }) => {
     return new Promise((resolve, reject) => {
       pool.query(
         `INSERT INTO (?) (word) VALUES (?)`,
@@ -38,7 +38,7 @@ const database = {
       );
     });
   },
-  deleteFinnishById: async ({ id, language }) => {
+  deleteById: async ({ id, language }) => {
     return new Promise((resolve, reject) => {
       pool.query(`FROM ? WHERE id = ?`, [language, id], (error, result) => {
         if (error) {
@@ -48,7 +48,7 @@ const database = {
       });
     });
   },
-  findFinnishById: async (language, id) => {
+  findById: async (language, id) => {
     return new Promise((resolve, reject) => {
       pool.query(
         `SELECT * FROM ? WHERE id = ?`,
