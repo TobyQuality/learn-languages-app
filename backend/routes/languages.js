@@ -3,17 +3,20 @@ const database = require("../database/crudrepository");
 
 const languagesRouter = express.Router();
 
-languagesRouter.get("/finnish", async (req, res) => {
-  const languages = await database.findAllFinnish();
+languagesRouter.get("/:language", async (req, res) => {
+  const language = req.params.language;
+  const languages = await database.findAllFinnish(language);
   return res.json(languages);
 });
 
-languagesRouter.post("/finnish", async (req, res) => {
+languagesRouter.post("/:language", async (req, res) => {
+  const language = req.params.language;
   const newWord = await database.saveFinnish(req.body);
   return res.status(201).json(newWord);
 });
 
-languagesRouter.get("/finnish/:myId([0-9]+)", async (req, res) => {
+languagesRouter.get("/:language/:myId([0-9]+)", async (req, res) => {
+  const language = req.params.language;
   const id = parseInt(req.params.myId);
   try {
     const word = await database.findById(id);
@@ -23,7 +26,8 @@ languagesRouter.get("/finnish/:myId([0-9]+)", async (req, res) => {
   }
 });
 
-languagesRouter.put("/finnish/:myId([0-9]+)", async (req, res) => {
+languagesRouter.put("/:language/:myId([0-9]+)", async (req, res) => {
+  const language = req.params.language;
   const id = parseInt(req.params.myId);
   if (!locationValidator(req.body)) {
     return res.status(400).end();
@@ -36,7 +40,8 @@ languagesRouter.put("/finnish/:myId([0-9]+)", async (req, res) => {
   }
 });
 
-languagesRouter.delete("/finnish/:myId([0-9]+)", async (req, res) => {
+languagesRouter.delete("/:language/:myId([0-9]+)", async (req, res) => {
+  const language = req.params.language;
   const id = parseInt(req.params.myId);
   try {
     const deleteLocation = await database.deleteById(id);

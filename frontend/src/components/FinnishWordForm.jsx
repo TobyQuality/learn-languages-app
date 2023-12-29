@@ -2,13 +2,17 @@ import { useState } from "react";
 import axios from "axios";
 
 const FinnishWordForm = () => {
+  const [language, setLanguage] = useState("finnish"); // Default language
   const [word, setWord] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     axios
-      .post("http://localhost:8080/api/languages/finnish", { word })
+      .post("http://localhost:8080/api/languages/finnish", {
+        language: "finnish",
+        word,
+      })
       .then((response) => {
         console.log("New word added:", response.data);
         // Optionally update state or perform any actions upon successful addition
@@ -22,6 +26,10 @@ const FinnishWordForm = () => {
     <div>
       <h2>Add New Word</h2>
       <form onSubmit={handleSubmit}>
+        <select value={language} onChange={(e) => setLanguage(e.target.value)}>
+          <option value="finnish">Finnish</option>
+          <option value="english">English</option>
+        </select>
         <input
           type="text"
           placeholder="Enter word"
