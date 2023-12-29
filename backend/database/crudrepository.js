@@ -14,9 +14,9 @@ var pool = mysql.createPool({
 // create an object that contains pool functions
 const database = {
   // function to save a new word to the database
-  findAllFinnish: async () => {
+  findAllWords: async ({ language }) => {
     return new Promise((resolve, reject) => {
-      pool.query(`SELECT * FROM finnish`, (error, result) => {
+      pool.query(`SELECT * FROM (?)`, [language], (error, result) => {
         if (error) {
           reject(error);
         }
@@ -40,7 +40,7 @@ const database = {
   },
   deleteFinnishById: async ({ id, language }) => {
     return new Promise((resolve, reject) => {
-      pool.query(`FROM finnish WHERE id = ?`, [id], (error, result) => {
+      pool.query(`FROM ? WHERE id = ?`, [language, id], (error, result) => {
         if (error) {
           reject(error);
         }
@@ -48,11 +48,11 @@ const database = {
       });
     });
   },
-  findFinnishById: async (id) => {
+  findFinnishById: async (language, id) => {
     return new Promise((resolve, reject) => {
       pool.query(
-        `SELECT * FROM finnish WHERE id = ?`,
-        [id],
+        `SELECT * FROM ? WHERE id = ?`,
+        [language, id],
         (error, result) => {
           if (error) {
             reject(error);
@@ -65,7 +65,7 @@ const database = {
   createFinnishTable: async ({ language }) => {
     return new Promise((resolve, reject) => {
       pool.query(
-        `CREATE TABLE finnish (id INT(21) NOT NULL, word VARCHAR(255) NOT NULL, tags_id int, PRIMARY KEY (id), FOREIGN KEY (tags_id) REFERENCES tags(id))`,
+        `CREATE TABLE  (id INT(21) NOT NULL, word VARCHAR(255) NOT NULL, tags_id int, PRIMARY KEY (id), FOREIGN KEY (tags_id) REFERENCES tags(id))`,
         (error, result) => {
           if (error) {
             reject(error);
