@@ -5,13 +5,13 @@ const languagesRouter = express.Router();
 
 languagesRouter.get("/:language", async (req, res) => {
   const language = req.params.language;
-  const languages = await database.findAllFinnish(language);
+  const languages = await database.findAll(language);
   return res.json(languages);
 });
 
 languagesRouter.post("/:language", async (req, res) => {
   const language = req.params.language;
-  const newWord = await database.saveFinnish(req.body);
+  const newWord = await database.save(req.body);
   return res.status(201).json(newWord);
 });
 
