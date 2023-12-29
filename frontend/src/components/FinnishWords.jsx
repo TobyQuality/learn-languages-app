@@ -1,10 +1,10 @@
 // This file contains the FinnishWords component which is used to display the Finnish words
 // that the user has added to their list of words to learn.
 
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 
-const WordList = () => {
+const FinnishWords = () => {
   const [words, setWords] = useState([]);
 
   useEffect(() => {
@@ -31,4 +31,4 @@ const WordList = () => {
   );
 };
 
-export default WordList;
+export default FinnishWords;
