@@ -1,16 +1,22 @@
 const mysql = require("mysql");
 
-// create a  MySQL connection object
+// create a  MySQL pool object
 require("dotenv").config();
 
-const connection = mysql.createConnection(process.env);
+var pool = mysql.createPool({
+  connectionLimit: 10,
+  host: process.env.host,
+  user: process.env.user,
+  password: process.env.password,
+  database: process.env.database,
+});
 
-// create an object that contains connection functions
+// create an object that contains pool functions
 const database = {
   // function to save a new word to the database
   findAllFinnish: async () => {
     return new Promise((resolve, reject) => {
-      connection.query(`SELECT * FROM finnish`, (error, result) => {
+      pool.query(`SELECT * FROM finnish`, (error, result) => {
         if (error) {
           reject(error);
         }
@@ -18,9 +24,9 @@ const database = {
       });
     });
   },
-  saveFinnish: async ({ word, language }) => {
+  saveFinnish: async ({ language, word }) => {
     return new Promise((resolve, reject) => {
-      connection.query(
+      pool.query(
         `INSERT INTO (?) (word) VALUES (?)`,
         [language, word],
         (error, result) => {
@@ -34,7 +40,7 @@ const database = {
   },
   deleteFinnishById: async ({ id, language }) => {
     return new Promise((resolve, reject) => {
-      connection.query(`FROM finnish WHERE id = ?`, [id], (error, result) => {
+      pool.query(`FROM finnish WHERE id = ?`, [id], (error, result) => {
         if (error) {
           reject(error);
         }
@@ -44,7 +50,7 @@ const database = {
   },
   findFinnishById: async (id) => {
     return new Promise((resolve, reject) => {
-      connection.query(
+      pool.query(
         `SELECT * FROM finnish WHERE id = ?`,
         [id],
         (error, result) => {
@@ -58,7 +64,7 @@ const database = {
   },
   createFinnishTable: async ({ language }) => {
     return new Promise((resolve, reject) => {
-      connection.query(
+      pool.query(
         `CREATE TABLE finnish (id INT(21) NOT NULL, word VARCHAR(255) NOT NULL, tags_id int, PRIMARY KEY (id), FOREIGN KEY (tags_id) REFERENCES tags(id))`,
         (error, result) => {
           if (error) {
@@ -71,7 +77,7 @@ const database = {
   },
   createTagsTable: async ({ language }) => {
     return new Promise((resolve, reject) => {
-      connection.query(
+      pool.query(
         `CREATE TABLE tags (id INT(21) NOT NULL, tag VARCHAR(255) NOT NULL, PRIMARY KEY (id))`,
         (error, result) => {
           if (error) {
@@ -84,13 +90,26 @@ const database = {
   },
   insertIntoTable: async ({ language }) => {
     return new Promise((resolve, reject) => {
-      connection.query(
+      pool.query(
         `INSERT INTO finnish (word) VALUES ('kissa')`,
         (error, result) => {
           if (error) {
             reject(error);
           }
           resolve(`${result} inserted into ${language} table`);
+        }
+      );
+    });
+  },
+  alterFinnishTable: async () => {
+    return new Promise((resolve, reject) => {
+      pool.query(
+        `ALTER TABLE finnish MODIFY COLUMN id INT AUTO_INCREMENT`,
+        (error, result) => {
+          if (error) {
+            reject(error);
+          }
+          resolve(`${result} altered finnish table`);
         }
       );
     });

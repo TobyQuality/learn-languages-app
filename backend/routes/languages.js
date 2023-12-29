@@ -9,11 +9,8 @@ languagesRouter.get("/finnish", async (req, res) => {
 });
 
 languagesRouter.post("/finnish", async (req, res) => {
-  if (!locationValidator(req.body)) {
-    return res.status(400).end();
-  }
-  const savedLocation = await database.save(req.body);
-  return res.status(201).json(savedLocation);
+  const newWord = await database.saveFinnish(req.body);
+  return res.status(201).json(newWord);
 });
 
 languagesRouter.get("/finnish/:myId([0-9]+)", async (req, res) => {

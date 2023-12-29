@@ -12,6 +12,8 @@ const language = readlineSync.question("Enter language: ", {
 //perform crud operations
 const main = async () => {
   try {
+    // const alterFinnishTable = await connection.alterFinnishTable();
+    // console.log(alterFinnishTable);
     //const findAllResult = await connection.findAll(language);
     //console.log(findAllResult);
     const resultSave = await connection.saveFinnish(word, language);
