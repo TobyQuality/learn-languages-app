@@ -1,14 +1,16 @@
 const express = require("express");
 const languagesRouter = require("./routes/languages");
-const port = process.env.PORT || 8080;
+const port = 8080;
 const app = express();
 const cors = require("cors");
+
 app.use(express.json());
 app.use(cors());
 app.use("/api/languages", languagesRouter);
 
 // use middleware to validate the request body
 app.use((req, res, next) => {
+  /*
   const word = req.body.word;
   if (!word) {
     return res.status(400).json({
@@ -21,6 +23,8 @@ app.use((req, res, next) => {
       error: "word is not valid",
     });
   }
+  */
+  console.log("SERVER: req.body: ", req.body);
   next();
 });
 

@@ -4,8 +4,10 @@ get http://localhost:8080/api/languages/finnish
 
 post http://localhost:8080/api/languages/finnish
 content-Type: application/json
-
 {
     "language": "finnish",
-    "word": "terve"
+    "word": "testi"
 }
+
+###
+delete http://localhost:8080/api/languages/finnish/4

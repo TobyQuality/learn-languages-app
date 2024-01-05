@@ -14,9 +14,9 @@ var pool = mysql.createPool({
 // create an object that contains pool functions
 const database = {
   // function to save a new word to the database
-  findAllWords: async ({ language }) => {
+  findAll: async (language) => {
     return new Promise((resolve, reject) => {
-      pool.query(`SELECT * FROM (?)`, [language], (error, result) => {
+      pool.query(`SELECT * FROM ${language}`, (error, result) => {
         if (error) {
           reject(error);
         }
@@ -24,10 +24,10 @@ const database = {
       });
     });
   },
-  save: async ({ language, word }) => {
+  save: async (language, word) => {
     return new Promise((resolve, reject) => {
       pool.query(
-        `INSERT INTO (?) (word) VALUES (?)`,
+        `INSERT INTO ? (word) VALUES (?)`,
         [language, word],
         (error, result) => {
           if (error) {
@@ -38,20 +38,25 @@ const database = {
       );
     });
   },
-  deleteById: async ({ id, language }) => {
+  deleteById: async (id, language) => {
+    console.log(id, language);
     return new Promise((resolve, reject) => {
-      pool.query(`FROM ? WHERE id = ?`, [language, id], (error, result) => {
-        if (error) {
-          reject(error);
+      pool.query(
+        `DELETE FROM ${language} WHERE id = (?)`,
+        [id],
+        (error, result) => {
+          if (error) {
+            reject(error);
+          }
+          resolve(`${result} deleted from ${language} table`);
         }
-        resolve("Deleted rows: " + result.affectedRows);
-      });
+      );
     });
   },
   findById: async (language, id) => {
     return new Promise((resolve, reject) => {
       pool.query(
-        `SELECT * FROM ? WHERE id = ?`,
+        `SELECT * FROM finnish WHERE id = ?`,
         [language, id],
         (error, result) => {
           if (error) {
@@ -103,15 +108,12 @@ const database = {
   },
   alterFinnishTable: async () => {
     return new Promise((resolve, reject) => {
-      pool.query(
-        `ALTER TABLE finnish MODIFY COLUMN id INT AUTO_INCREMENT`,
-        (error, result) => {
-          if (error) {
-            reject(error);
-          }
-          resolve(`${result} altered finnish table`);
+      pool.query(`ALTER TABLE finnish ADD UNIQUE (word)`, (error, result) => {
+        if (error) {
+          reject(error);
         }
-      );
+        resolve(`${result} altered finnish table`);
+      });
     });
   },
 };

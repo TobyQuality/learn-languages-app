@@ -4,19 +4,16 @@ const database = require("../database/crudrepository");
 const languagesRouter = express.Router();
 
 languagesRouter.get("/:language", async (req, res) => {
-  const language = req.params.language;
-  const languages = await database.findAll(language);
-  return res.json(languages);
+  const words = await database.findAll(req.params.language);
+  return res.json(words);
 });
 
 languagesRouter.post("/:language", async (req, res) => {
-  const language = req.params.language;
-  const newWord = await database.save(req.body);
+  const newWord = await database.save(req.body.word);
   return res.status(201).json(newWord);
 });
 
 languagesRouter.get("/:language/:myId([0-9]+)", async (req, res) => {
-  const language = req.params.language;
   const id = parseInt(req.params.myId);
   try {
     const word = await database.findById(id);
@@ -41,10 +38,11 @@ languagesRouter.put("/:language/:myId([0-9]+)", async (req, res) => {
 });
 
 languagesRouter.delete("/:language/:myId([0-9]+)", async (req, res) => {
-  const language = req.params.language;
+  console.log(req.params);
   const id = parseInt(req.params.myId);
+  const language = req.params.language;
   try {
-    const deleteLocation = await database.deleteById(id);
+    const deleteLocation = await database.deleteById(id, language);
     return res.status(204).json(deleteLocation);
   } catch (error) {
     return res.status(404).end();
