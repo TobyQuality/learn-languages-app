@@ -1,0 +1,153 @@
+* {
+  margin: 0; /* Remove default margin */
+  padding: 0; /* Remove default padding */
+  box-sizing: border-box; /* Border-box ensures that the padding and border are included in the element's total width and height. */
+}
+
+/********** Navbar **********/
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  margin-bottom: 50px; /* Add margin bottom to leave space between the navbar and the content below it */
+}
+
+.hamburger-menu {
+  display: block;
+  cursor: pointer;
+}
+
+.bar {
+  width: 2rem;
+  height: 0.6rem;
+  background-color: #000000;
+  margin: 5px 0;
+}
+
+.menu {
+  display: none;
+  list-style: none;
+}
+
+.menu li a:hover {
+  color: #777777;
+}
+
+.menu-active {
+  display: flex;
+  flex-direction: column; /* Stack the links on top of each other */
+  align-items: center; /* Align the navbar items center as the navbar will be stretched across the page */
+  position: absolute; /* Position the navbar absolute so it doesn't affect the grid */
+  top: 60px; /* Position the navbar 60px from the top of the page */
+  left: 0; /* Position the navbar 0px from the left of the page */
+  width: 100%;
+  background-color: #333;
+  padding: 20px 0;
+}
+
+.menu-active li {
+  margin-bottom: 15px;
+}
+
+.menu-active li:last-child {
+  margin-bottom: 0; /* Remove bottom margin on last-child as it's not needed */
+}
+
+.menu-active li a {
+  color: #fff;
+  font-size: 18px;
+  transition: color 0.2s ease; /* Add transition to color */
+  text-decoration: none; /* Remove default underline */
+}
+
+.menu-active li a:hover {
+  color: #bfbfbf; /* Change font color to #bfbfbf */
+}
+
+/********** Grid container and items **********/
+
+.grid-container {
+  margin-top: 30px;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 20px;
+  padding: 20px;
+}
+
+.grid-item {
+  background-color: #ffffff;
+  padding: 20px;
+  font-size: 30px;
+  text-align: center;
+}
+
+/********** Flex container **********/
+
+.flex-container {
+  display: flex; /* Make the container flex */
+  flex-wrap: wrap; /* Wrap the flex items onto multiple lines */
+  justify-content: center; /* Centre the flex items horizontally */
+  margin-top: 30px; /* Add margin to the top of the container */
+}
+
+/********** Header **********/
+
+.header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+/********** Media queries **********/
+
+/* Media query for larger screens */
+@media screen and (min-width: 768px) {
+  .hamburger-menu {
+    display: none;
+  }
+
+  .navbar {
+    justify-content: flex-end;
+  }
+
+  .menu {
+    display: flex;
+    align-items: center;
+  }
+
+  .menu li {
+    list-style: none;
+    display: inline-block; /* Display list items horizontally */
+    margin-right: 20px; /* Add space between each list item */
+    text-align: center;
+  }
+
+  .menu li a {
+    text-decoration: none;
+    color: #000000;
+    font-weight: 500;
+    transition: color 0.4s ease;
+    font-family: "Roboto", sans-serif;
+    font-size: 1.5rem;
+    margin-left: 30px;
+  }
+
+  .menu li:first-child {
+    margin-left: 0; /* Remove left margin from the first list item */
+  }
+
+  .menu li:last-child {
+    margin-right: 0; /* Remove margin from the last list item */
+  }
+
+  .grid-container {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .menu li a {
+    font-size: 1.7rem;
+  }
+}
