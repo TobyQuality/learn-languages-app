@@ -1,12 +1,10 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
-import FinnishWordForm from "./components/FinnishWordForm";
+import WordForm from "./components/WordForm";
 import FinnishWords from "./components/FinnishWords";
 
 const App = () => {
   return (
     <div>
-      <FinnishWordForm />
+      <WordForm />
       <FinnishWords />
     </div>
   );

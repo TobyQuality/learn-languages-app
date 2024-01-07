@@ -27,8 +27,8 @@ const database = {
   save: async (language, word) => {
     return new Promise((resolve, reject) => {
       pool.query(
-        `INSERT INTO ? (word) VALUES (?)`,
-        [language, word],
+        `INSERT INTO ${language} (word) VALUES (?)`,
+        [word],
         (error, result) => {
           if (error) {
             reject(error);
@@ -56,7 +56,7 @@ const database = {
   findById: async (language, id) => {
     return new Promise((resolve, reject) => {
       pool.query(
-        `SELECT * FROM finnish WHERE id = ?`,
+        `SELECT * FROM ${language} WHERE id = ?`,
         [language, id],
         (error, result) => {
           if (error) {
@@ -67,10 +67,10 @@ const database = {
       );
     });
   },
-  createFinnishTable: async ({ language }) => {
+  createTable: async ({ language }) => {
     return new Promise((resolve, reject) => {
       pool.query(
-        `CREATE TABLE  (id INT(21) NOT NULL, word VARCHAR(255) NOT NULL, tags_id int, PRIMARY KEY (id), FOREIGN KEY (tags_id) REFERENCES tags(id))`,
+        `CREATE TABLE ${language} (id INT(21) NOT NULL, word VARCHAR(255) NOT NULL, tags_id int, PRIMARY KEY (id), FOREIGN KEY (tags_id) REFERENCES tags(id))`,
         (error, result) => {
           if (error) {
             reject(error);
@@ -80,33 +80,8 @@ const database = {
       );
     });
   },
-  createTagsTable: async ({ language }) => {
-    return new Promise((resolve, reject) => {
-      pool.query(
-        `CREATE TABLE tags (id INT(21) NOT NULL, tag VARCHAR(255) NOT NULL, PRIMARY KEY (id))`,
-        (error, result) => {
-          if (error) {
-            reject(error);
-          }
-          resolve(`Table ${language} created`);
-        }
-      );
-    });
-  },
-  insertIntoTable: async ({ language }) => {
-    return new Promise((resolve, reject) => {
-      pool.query(
-        `INSERT INTO finnish (word) VALUES ('kissa')`,
-        (error, result) => {
-          if (error) {
-            reject(error);
-          }
-          resolve(`${result} inserted into ${language} table`);
-        }
-      );
-    });
-  },
-  alterFinnishTable: async () => {
+  /* this code requires to be modified by individual needs */
+  alterTable: async () => {
     return new Promise((resolve, reject) => {
       pool.query(`ALTER TABLE finnish ADD UNIQUE (word)`, (error, result) => {
         if (error) {

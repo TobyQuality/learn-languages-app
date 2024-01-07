@@ -10,9 +10,9 @@ const FinnishWords = () => {
   useEffect(() => {
     // Fetch words from the backend when the component mounts
     axios
-      .get("http://localhost:8080/api/languages/finnish")
+      .get(`http://localhost:8080/api/languages/finnish`)
       .then((response) => {
-        setWords(response.data);
+        setWords(response?.data);
       })
       .catch((error) => {
         console.error("Error fetching words:", error);

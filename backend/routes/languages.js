@@ -9,7 +9,7 @@ languagesRouter.get("/:language", async (req, res) => {
 });
 
 languagesRouter.post("/:language", async (req, res) => {
-  const newWord = await database.save(req.body.word);
+  const newWord = await database.save(req.params.language, req.body.word);
   return res.status(201).json(newWord);
 });
 
