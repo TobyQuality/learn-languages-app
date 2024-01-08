@@ -91,6 +91,20 @@ const database = {
       });
     });
   },
+  findUser: async (username) => {
+    return new Promise((resolve, reject) => {
+      pool.query(
+        `SELECT * FROM users WHERE username = ?`,
+        [username],
+        (error, result) => {
+          if (error) {
+            reject(error);
+          }
+          resolve(result[0]);
+        }
+      );
+    });
+  },
   createTable: async () => {
     return new Promise((resolve, reject) => {
       pool.query(

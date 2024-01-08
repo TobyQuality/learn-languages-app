@@ -134,3 +134,6 @@ config.js
 
 # todo.docx
 todo.docx
+
+# .sql
+*.sql
