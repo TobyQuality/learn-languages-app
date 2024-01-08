@@ -24,7 +24,7 @@ const database = {
       });
     });
   },
-  save: async (language, word) => {
+  saveWord: async (language, word) => {
     return new Promise((resolve, reject) => {
       pool.query(
         `INSERT INTO ${language} (word) VALUES (?)`,
@@ -34,6 +34,20 @@ const database = {
             reject(error);
           }
           resolve(`New word ${word} with id has been inserted `);
+        }
+      );
+    });
+  },
+  saveUser: async (username, passwordhash) => {
+    return new Promise((resolve, reject) => {
+      pool.query(
+        `INSERT INTO users (username, passwordhash) VALUES (?, ?)`,
+        [username, passwordhash],
+        (error, result) => {
+          if (error) {
+            reject(error);
+          }
+          resolve(`New user ${username} with id has been inserted `);
         }
       );
     });
@@ -67,15 +81,25 @@ const database = {
       );
     });
   },
-  createTable: async ({ language }) => {
+  findUsers: async () => {
+    return new Promise((resolve, reject) => {
+      pool.query(`SELECT * FROM users`, (error, result) => {
+        if (error) {
+          reject(error);
+        }
+        resolve(result);
+      });
+    });
+  },
+  createTable: async () => {
     return new Promise((resolve, reject) => {
       pool.query(
-        `CREATE TABLE ${language} (id INT(21) NOT NULL, word VARCHAR(255) NOT NULL, tags_id int, PRIMARY KEY (id), FOREIGN KEY (tags_id) REFERENCES tags(id))`,
+        `CREATE TABLE users (id INT(21) NOT NULL UNIQUE AUTO_INCREMENT, username VARCHAR(255) NOT NULL UNIQUE, passwordhash TEXT NOT NULL, PRIMARY KEY (id))`,
         (error, result) => {
           if (error) {
             reject(error);
           }
-          resolve(`Table ${language} created`);
+          resolve(`Table users created`);
         }
       );
     });
@@ -83,12 +107,15 @@ const database = {
   /* this code requires to be modified by individual needs */
   alterTable: async () => {
     return new Promise((resolve, reject) => {
-      pool.query(`ALTER TABLE finnish ADD UNIQUE (word)`, (error, result) => {
-        if (error) {
-          reject(error);
+      pool.query(
+        `ALTER TABLE users ADD usertype VARCHAR(100) NOT NULL DEFAULT 'user'`,
+        (error, result) => {
+          if (error) {
+            reject(error);
+          }
+          resolve(`${result} altered finnish table`);
         }
-        resolve(`${result} altered finnish table`);
-      });
+      );
     });
   },
 };

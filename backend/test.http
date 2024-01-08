@@ -7,4 +7,6 @@ content-Type: application/json
 {"word": "testi"}
 
 ###
-delete http://localhost:8080/api/languages/finnish/5
+delete http://localhost:8080/api/languages/finnish/
+
+
