@@ -1,5 +1,7 @@
 const express = require("express");
 const languagesRouter = require("./routes/languages");
+const loginRouter = require("./routes/login");
+const usersRouter = require("./routes/users");
 const port = 8080;
 const app = express();
 const cors = require("cors");
@@ -7,6 +9,8 @@ const cors = require("cors");
 app.use(express.json());
 app.use(cors());
 app.use("/api/languages", languagesRouter);
+app.use("/api/login", loginRouter);
+app.use("/api/users", usersRouter);
 
 // use middleware to validate the request body
 app.use((req, res, next) => {
