@@ -25,10 +25,10 @@ const Navigation = () => {
         </div>
         <ul className="menu">
           <li>
-            <Link to="/">Home</Link>
+            <Link to="showwords">Home</Link>
           </li>
           <li>
-            <Link to="word">New schedule</Link>
+            <Link to="word">Add vocabulary</Link>
           </li>
         </ul>
       </nav>

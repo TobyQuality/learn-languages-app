@@ -105,6 +105,16 @@ const database = {
       );
     });
   },
+  findUserById: async (id) => {
+    return new Promise((resolve, reject) => {
+      pool.query(`SELECT * FROM users WHERE id = ?`, [id], (error, result) => {
+        if (error) {
+          reject(error);
+        }
+        resolve(result[0]);
+      });
+    });
+  },
   createTable: async () => {
     return new Promise((resolve, reject) => {
       pool.query(
@@ -128,6 +138,19 @@ const database = {
             reject(error);
           }
           resolve(`${result} altered finnish table`);
+        }
+      );
+    });
+  },
+  insertTestUser: async (username, password) => {
+    return new Promise((resolve, reject) => {
+      pool.query(
+        `INSERT INTO users (username, passwordhash, usertype) VALUES (?, ?, 'admin')`,
+        (error, result) => {
+          if (error) {
+            reject(error);
+          }
+          resolve(`${result} inserted test user`);
         }
       );
     });

@@ -14,8 +14,8 @@ const main = async () => {
   try {
     //const createTable = await connection.createTable();
     //console.log(createTable);
-    const alterTable = await connection.alterTable();
-    console.log(alterTable);
+    // const alterTable = await connection.alterTable();
+    // console.log(alterTable);
     //const findAllResult = await connection.findAll(language);
     //console.log(findAllResult);
     //const resultSave = await connection.save(language, word);
@@ -24,6 +24,8 @@ const main = async () => {
     //console.log(resultFindById);
     //const resultDelete = await connection.deleteById();
     //console.log(resultDelete);
+    const testUser = await connection.saveUser(word, language);
+    console.log(testUser);
   } catch (err) {
     console.log(err);
   } /*finally {

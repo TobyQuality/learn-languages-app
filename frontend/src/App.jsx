@@ -33,7 +33,7 @@ const App = () => {
       )}
       <Routes>
         <Route path="/word" element={<WordForm />} />
-        <Route path="/" element={<FinnishWords />} />
+        <Route path="/showwords" element={<FinnishWords />} />
       </Routes>
     </div>
   );
