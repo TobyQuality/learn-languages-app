@@ -94,13 +94,15 @@ const database = {
   findUser: async (username) => {
     return new Promise((resolve, reject) => {
       pool.query(
-        `SELECT * FROM users WHERE username = ?`,
+        `SELECT * FROM users WHERE username = '${username}'`,
         [username],
         (error, result) => {
           if (error) {
+            console.log("ERROR: " + error);
             reject(error);
           }
-          resolve(result[0]);
+          console.log("RESULT: " + result);
+          resolve(result);
         }
       );
     });
@@ -124,6 +126,20 @@ const database = {
             reject(error);
           }
           resolve(`Table users created`);
+        }
+      );
+    });
+  },
+  changeUserInformation: async (id, username, passwordhash) => {
+    return new Promise((resolve, reject) => {
+      pool.query(
+        `UPDATE users SET username = ?, passwordhash = ? WHERE id = ?`,
+        [username, passwordhash, id],
+        (error, result) => {
+          if (error) {
+            reject(error);
+          }
+          resolve(`${result} updated`);
         }
       );
     });

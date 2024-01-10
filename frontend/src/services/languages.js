@@ -1,4 +1,4 @@
-const baseUrl = "/api/blogs";
+const baseUrl = "/api/languages";
 
 let token = null;
 

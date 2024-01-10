@@ -10,29 +10,9 @@ const cors = require("cors");
 app.use(express.json());
 app.use(cors());
 app.use(middleware.tokenExtractor);
-app.use("/api/languages", app.use(middleware.userExtractor), languagesRouter);
+app.use("/api/languages", middleware.userExtractor, languagesRouter);
 app.use("/api/login", loginRouter);
 app.use("/api/users", usersRouter);
-
-// use middleware to validate the request body
-app.use((req, res, next) => {
-  /*
-  const word = req.body.word;
-  if (!word) {
-    return res.status(400).json({
-      error: "Missing word",
-    });
-  }
-  // check if word is a string
-  if (typeof word !== "string") {
-    return res.status(400).json({
-      error: "word is not valid",
-    });
-  }
-  */
-  console.log("SERVER: req.body: ", req.body);
-  next();
-});
 
 const server = app
   .listen(port, () => {

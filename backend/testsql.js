@@ -12,6 +12,8 @@ const language = readlineSync.question("Enter language: ", {
 //perform crud operations
 const main = async () => {
   try {
+    const findUsers = await connection.findUsers();
+    console.log(findUsers);
     //const createTable = await connection.createTable();
     //console.log(createTable);
     // const alterTable = await connection.alterTable();
@@ -24,8 +26,8 @@ const main = async () => {
     //console.log(resultFindById);
     //const resultDelete = await connection.deleteById();
     //console.log(resultDelete);
-    const testUser = await connection.saveUser(word, language);
-    console.log(testUser);
+    //const testUser = await connection.saveUser(word, language);
+    //console.log(testUser);
   } catch (err) {
     console.log(err);
   } /*finally {

@@ -4,9 +4,11 @@ const loginRouter = require("express").Router();
 const database = require("../database/crudrepository");
 
 loginRouter.post("/", async (request, response) => {
-  const { username, password } = request.body;
+  const { password, username } = request.body;
+  console.log(request.body);
 
   const user = await database.findUser(username);
+  console.log("USER: " + user);
   const passwordCorrect =
     user === null ? false : await bcrypt.compare(password, user.passwordhash);
 
