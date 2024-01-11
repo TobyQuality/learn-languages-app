@@ -7,6 +7,12 @@ usersRouter.get("/", async (request, response) => {
   response.json(users);
 });
 
+usersRouter.get("/:username", async (request, response) => {
+  const username = request.params.username;
+  const user = await database.findUser(username);
+  response.json(user);
+});
+
 usersRouter.post("/", async (request, response) => {
   const { username, password } = request.body;
   if (password.length < 3) {

@@ -9,4 +9,19 @@ content-Type: application/json
 ###
 delete http://localhost:8080/api/languages/finnish/
 
+###
+post http://localhost:8080/api/users/
+content-Type: application/json
 
+{"username": "testi", "password": "testi"}
+
+###
+get http://localhost:8080/api/users/testi
+
+###
+
+post http://localhost:8080/api/login
+
+content-Type: application/json
+
+{"username": "testi", "password": "testi"}

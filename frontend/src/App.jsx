@@ -19,6 +19,16 @@ const App = () => {
     }
   }, []);
 
+  // when user logs out, clear the local storage and set the user to null
+  // also set the token to empty string
+  // and redirect to login page
+  const logout = () => {
+    window.localStorage.clear();
+    setUser(null);
+    languagesService.setToken("");
+    window.location.href = "/login";
+  };
+
   return (
     <div>
       <h1>Learn Finnish</h1>

@@ -17,7 +17,11 @@ const LoginForm = () => {
       window.localStorage.setItem("loggedUser", JSON.stringify(user));
 
       languagesService.setToken(user.token);
-      setUser(user);
+      if (user) {
+        window.location.href = "/";
+        setUsername("");
+        setPassword("");
+      }
     } catch (exception) {
       console.log(exception);
     }

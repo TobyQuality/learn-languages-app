@@ -94,14 +94,14 @@ const database = {
   findUser: async (username) => {
     return new Promise((resolve, reject) => {
       pool.query(
-        `SELECT * FROM users WHERE username = '${username}'`,
+        `SELECT * FROM users WHERE username = ?`,
         [username],
         (error, result) => {
           if (error) {
             console.log("ERROR: " + error);
             reject(error);
           }
-          console.log("RESULT: " + result);
+          console.log("RESULT: " + result[0]);
           resolve(result);
         }
       );
@@ -130,10 +130,10 @@ const database = {
       );
     });
   },
-  changeUserInformation: async (id, username, passwordhash) => {
+  changeUserInformation: async (passwordhash, id) => {
     return new Promise((resolve, reject) => {
       pool.query(
-        `UPDATE users SET username = ?, passwordhash = ? WHERE id = ?`,
+        `UPDATE users SET passwordhash = ? WHERE id = ?`,
         [username, passwordhash, id],
         (error, result) => {
           if (error) {

@@ -6,11 +6,16 @@ const database = require("../database/crudrepository");
 loginRouter.post("/", async (request, response) => {
   const { password, username } = request.body;
   console.log(request.body);
+  console.log("USERNAME: " + username);
+  console.log("PASSWORD: " + password);
 
   const user = await database.findUser(username);
-  console.log("USER: " + user);
+
+  console.log("USERNAME: " + user[0].username);
   const passwordCorrect =
-    user === null ? false : await bcrypt.compare(password, user.passwordhash);
+    user === null
+      ? false
+      : await bcrypt.compare(password, user[0].passwordhash);
 
   if (!(user && passwordCorrect)) {
     return response.status(401).json({
@@ -19,8 +24,8 @@ loginRouter.post("/", async (request, response) => {
   }
 
   const userForToken = {
-    username: user.username,
-    id: user.id,
+    username: user[0].username,
+    id: user[0].id,
   };
 
   const token = jwt.sign(userForToken, process.env.SECRET, {
