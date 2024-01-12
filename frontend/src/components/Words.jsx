@@ -4,13 +4,13 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-const FinnishWords = () => {
+const Words = (language) => {
   const [words, setWords] = useState([]);
 
   useEffect(() => {
     // Fetch words from the backend when the component mounts
     axios
-      .get(`http://localhost:8080/api/languages/finnish`)
+      .get(`http://localhost:8080/api/languages/${language}`)
       .then((response) => {
         setWords(response?.data);
       })
@@ -21,7 +21,7 @@ const FinnishWords = () => {
 
   return (
     <div>
-      <h2>Finnish Words</h2>
+      <h2>${language} Words</h2>
       <ul>
         {words.map((word) => (
           <li key={word.id}>{word.word}</li>
@@ -31,4 +31,4 @@ const FinnishWords = () => {
   );
 };
 
-export default FinnishWords;
+export default Words;

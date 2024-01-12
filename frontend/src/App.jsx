@@ -2,7 +2,6 @@ import { Routes, Route, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Navigation from "./components/Navigation";
 import WordForm from "./components/WordForm";
-import FinnishWords from "./components/FinnishWords";
 import LoginForm from "./components/LoginForm";
 import languagesService from "./services/languages";
 
@@ -43,7 +42,6 @@ const App = () => {
       )}
       <Routes>
         <Route path="/word" element={<WordForm />} />
-        <Route path="/showwords" element={<FinnishWords />} />
       </Routes>
     </div>
   );
