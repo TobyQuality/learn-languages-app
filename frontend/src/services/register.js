@@ -1,5 +1,8 @@
-const register = async (username, password) => {
-  const response = await axios.post(baseUrl, { username, password });
+import axios from "axios";
+const baseUrl = "http://localhost:8080/api/users";
+
+const register = async (credentials) => {
+  const response = await axios.post(baseUrl, credentials);
   return response.data;
 };
 

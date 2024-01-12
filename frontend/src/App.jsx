@@ -4,6 +4,7 @@ import Navigation from "./components/Navigation";
 import WordForm from "./components/WordForm";
 import LoginForm from "./components/LoginForm";
 import languagesService from "./services/languages";
+import Register from "./components/Register";
 
 const App = () => {
   const [user, setUser] = useState(null);
@@ -42,6 +43,7 @@ const App = () => {
       )}
       <Routes>
         <Route path="/word" element={<WordForm />} />
+        <Route path="/register" element={<Register />} />
       </Routes>
     </div>
   );

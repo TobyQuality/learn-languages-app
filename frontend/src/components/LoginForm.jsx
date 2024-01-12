@@ -1,6 +1,7 @@
 import { useState } from "react";
 import loginService from "../services/login";
 import languagesService from "../services/languages";
+import { Link } from "react-router-dom";
 
 const LoginForm = () => {
   const [username, setUsername] = useState("");
@@ -55,6 +56,7 @@ const LoginForm = () => {
           login
         </button>
       </form>
+      <Link to="/register">Register</Link>
     </div>
   );
 };

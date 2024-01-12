@@ -7,26 +7,27 @@ const Register = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
+  const [success, setSuccess] = useState(false);
 
   const handleRegister = async (event) => {
     event.preventDefault();
     try {
       const user = await registerService.register({
-        username,
-        password,
-        name,
-        email,
+        username: username,
+        password: password,
+        name: name,
+        email: email,
       });
       if (user) {
         setUsername("");
         setPassword("");
         setName("");
         setEmail("");
-        setSuccess("Registration successful");
+        setSuccess(true);
         setTimeout(() => {
           setSuccess("");
-        }, 5000);
+          window.location.href = "/login";
+        }, 3000);
       }
     } catch (exception) {
       setError("Registration failed");
