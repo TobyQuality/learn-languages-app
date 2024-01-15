@@ -1,16 +1,15 @@
 import { useState } from "react";
 import axios from "axios";
+import Words from "./Words";
+import { useQuery } from "@tanstack/react-query";
 
 const WordForm = () => {
+  const languages = ["finnish", "english"];
   const [language, setLanguage] = useState("finnish"); // Default language
   const [word, setWord] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    console.log("Adding new word:", word);
-    console.log("Language:", language);
-
     axios
       .post(`http://localhost:8080/api/languages/${language}`, {
         language,

@@ -1,12 +1,9 @@
-// This file contains the FinnishWords component which is used to display the Finnish words
-// that the user has added to their list of words to learn.
-
 import { useState, useEffect } from "react";
 import axios from "axios";
 
 const Words = (language) => {
+  console.log(language)
   const [words, setWords] = useState([]);
-
   useEffect(() => {
     // Fetch words from the backend when the component mounts
     axios
@@ -21,7 +18,6 @@ const Words = (language) => {
 
   return (
     <div>
-      <h2>${language} Words</h2>
       <ul>
         {words.map((word) => (
           <li key={word.id}>{word.word}</li>

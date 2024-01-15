@@ -5,6 +5,7 @@ import WordForm from "./components/WordForm";
 import LoginForm from "./components/LoginForm";
 import languagesService from "./services/languages";
 import Register from "./components/Register";
+import Play from "./components/Play";
 
 const App = () => {
   const [user, setUser] = useState(null);
@@ -16,6 +17,8 @@ const App = () => {
       const user = JSON.parse(loggedUserJSON);
       setUser(user);
       languagesService.setToken(user.token);
+      console.log("User is logged in");
+      console.log(user);
     }
   }, []);
 
@@ -44,6 +47,7 @@ const App = () => {
       <Routes>
         <Route path="/word" element={<WordForm />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/play" element={<Play />} />
       </Routes>
     </div>
   );

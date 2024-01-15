@@ -11,9 +11,12 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 
 const Play = () => {
-  const languages = [];
+  const languages = ["finnish", "english"];
   const [words, setWords] = useState([]);
   const [languageToLearn, setLanguageToLearn] = useState("");
+  const [languageToShow, setLanguageToShow] = useState("");
+  const [notification, setNotification] = useState("");
+
   useEffect(() => {
     for (let i = 0; i < languages.length; i++) {
       axios
@@ -26,33 +29,30 @@ const Play = () => {
         });
     }
   }, []);
-  // if the user has chosen a language to learn,
-  // show the form to choose a language to show
-  useEffect(() => {
-    languageToLearn !== ""
-      ? document
-          .getElementById("languages-to-show-form")
-          .setAttribute("style", "visibility: visible)")
-      : document
-          .getElementById("languages-to-show-form")
-          .setAttribute("style", "visibility: hidden)");
-  }, [languageToLearn]);
+
+  const handlePlay = async (event) => {
+    event.preventDefault();
+    if (languageToLearn === languageToShow) {
+      setNotification("The languages are the same, change them to play");
+      setTimeout(() => {
+        setNotification("");
+      }, 5000);
+    } else {
+      startGame();
+    }
+  };
+
+  const startGame = () => {};
+
   return (
     <div>
       <h2>Play</h2>
-      <form>
-        <div>
-          <button type="submit" id="play-button">
-            play
-          </button>
-        </div>
-      </form>
       <div>
         <p>Score: </p>
       </div>
 
-      <div>
-        <form>
+      <form>
+        <div>
           <label for="language-to-learn">Choose a language to learn:</label>
           <select name="languages-to-learn" id="languages-to-learn">
             {languages.map((language) => (
@@ -67,25 +67,31 @@ const Play = () => {
             }
             id="toggle-language-button"
           >
-            toggle language
+            learn language
           </button>
-        </form>
-        <form style={{ visibility: "visible" }} id="languages-to-show-form">
+        </div>
+        <div>
           <label for="language-to-show">Choose a language to learn:</label>
           <select name="languages-to-show" id="languages-to-show">
-            {languages.map((language) => {
-              if (language !== languageToLearn) {
-                return <option value={language}>{language}</option>;
-              }
-            })}
+            {languages.map((language) => (
+              <option value={language}>{language}</option>
+            ))}
           </select>
-
-          <div>
-            <button type="submit" id="guess-button">
-              guess
-            </button>
-          </div>
-        </form>
+          <button
+            onClick={() =>
+              setLanguageToShow(
+                document.getElementById("languages-to-show").value
+              )
+            }
+            id="toggle-language-button"
+          >
+            show questions
+          </button>
+        </div>
+        <button onSubmit={handlePlay}></button>
+      </form>
+      <div>
+        <h3>{notification}</h3>
       </div>
     </div>
   );

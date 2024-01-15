@@ -30,6 +30,9 @@ const Navigation = () => {
           <li>
             <Link to="word">Add vocabulary</Link>
           </li>
+          <li>
+            <Link to="play">Play</Link>
+          </li>
         </ul>
       </nav>
     </div>

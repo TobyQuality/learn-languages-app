@@ -12,6 +12,7 @@ const Register = () => {
   const handleRegister = async (event) => {
     event.preventDefault();
     try {
+      const info = {};
       const user = await registerService.register({
         username: username,
         password: password,
