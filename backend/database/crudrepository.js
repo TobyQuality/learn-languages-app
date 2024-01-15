@@ -120,7 +120,7 @@ const database = {
   createTable: async () => {
     return new Promise((resolve, reject) => {
       pool.query(
-        `CREATE TABLE users (id INT(21) NOT NULL UNIQUE AUTO_INCREMENT, username VARCHAR(255) NOT NULL UNIQUE, passwordhash TEXT NOT NULL, PRIMARY KEY (id))`,
+        `CREATE TABLE same_meanings (id INT NOT NULL AUTO_INCREMENT, finnish_id INT UNIQUE, english_id INT UNIQUE, persian_id INT UNIQUE, PRIMARY KEY (id), FOREIGN KEY(finnish_id) REFERENCES finnish(id), FOREIGN KEY(english_id) REFERENCES english(id))`,
         (error, result) => {
           if (error) {
             reject(error);
@@ -130,25 +130,11 @@ const database = {
       );
     });
   },
-  changeUserInformation: async (passwordhash, id) => {
-    return new Promise((resolve, reject) => {
-      pool.query(
-        `UPDATE users SET passwordhash = ? WHERE id = ?`,
-        [username, passwordhash, id],
-        (error, result) => {
-          if (error) {
-            reject(error);
-          }
-          resolve(`${result} updated`);
-        }
-      );
-    });
-  },
   /* this code requires to be modified by individual needs */
   alterTable: async () => {
     return new Promise((resolve, reject) => {
       pool.query(
-        `ALTER TABLE users ADD usertype VARCHAR(100) NOT NULL DEFAULT 'user'`,
+        `ALTER TABLE english ADD FOREIGN KEY(finnish_id) REFERENCES finnish(id)`,
         (error, result) => {
           if (error) {
             reject(error);
@@ -167,6 +153,43 @@ const database = {
             reject(error);
           }
           resolve(`${result} inserted test user`);
+        }
+      );
+    });
+  },
+  describeTable: async (table) => {
+    return new Promise((resolve, reject) => {
+      pool.query(`DESCRIBE ${table}`, [table], (error, result) => {
+        if (error) {
+          reject(error);
+        }
+        resolve(result);
+      });
+    });
+  },
+  joinLanguages: async (language1, language2) => {
+    return new Promise((resolve, reject) => {
+      pool.query(
+        `SELECT * FROM ${language1} INNER JOIN ${language2} ON ${language1}.id = ${language2}.${language1}_id`,
+        (error, result) => {
+          if (error) {
+            reject(error);
+          }
+          resolve(result);
+        }
+      );
+    });
+  },
+  insertToTableLanguageForeignKey: async (language1, language2, id) => {
+    return new Promise((resolve, reject) => {
+      pool.query(
+        `INSERT INTO ${language1} (${language2}_id) VALUES (?)`,
+        [id],
+        (error, result) => {
+          if (error) {
+            reject(error);
+          }
+          resolve(`${result} inserted to ${language1} table`);
         }
       );
     });

@@ -6,6 +6,7 @@ const tokenExtractor = (request, response, next) => {
   if (authorization && authorization.toLowerCase().startsWith("bearer ")) {
     request.token = authorization.substring(7);
   }
+  console.log("REQUEST TOKEN: " + request.token);
   next();
 };
 
@@ -13,6 +14,7 @@ const tokenExtractor = (request, response, next) => {
 const userExtractor = async (request, response, next) => {
   if (request.method === "POST" || request.method === "DELETE") {
     const token = request.token;
+    console.log("TOKEN: " + token);
     // to prevent internal server error from happening,
     // it is important to first check if token is not undefined
     if (token) {

@@ -2,9 +2,10 @@ get http://localhost:8080/api/languages/finnish
 
 ###
 
-post http://localhost:8080/api/languages/finnish
+post http://localhost:8080/api/languages/english
 content-Type: application/json
-{"word": "testi"}
+
+{"word": "cat"}
 
 ###
 delete http://localhost:8080/api/languages/finnish/
