@@ -1,3 +1,4 @@
+// App.jsx
 import { Routes, Route, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Navigation from "./components/Navigation";
@@ -6,7 +7,7 @@ import LoginForm from "./components/LoginForm";
 import languagesService from "./services/languages";
 import Register from "./components/Register";
 import Play from "./components/Play";
-import Game from "./components/Game";
+import { Button, Typography } from "@mui/material";
 
 const App = () => {
   const [user, setUser] = useState(null);
@@ -24,8 +25,8 @@ const App = () => {
   }, []);
 
   // when user logs out, clear the local storage and set the user to null
-  // also set the token to empty string
-  // and redirect to login page
+  // also set the token to an empty string
+  // and redirect to the login page
   const logout = () => {
     window.localStorage.clear();
     setUser(null);
@@ -35,13 +36,13 @@ const App = () => {
 
   return (
     <div>
-      <h1>Learn Finnish</h1>
       {!user && <LoginForm />}
       {user && (
         <div>
-          <h2>Learn languages Application</h2>
-          <p>{user.name} has logged in</p>
-          <button onClick={logout}>logout</button>
+          <Typography variant="h2">Learn languages Application</Typography>
+          <Button onClick={logout} variant="contained">
+            Logout
+          </Button>
           <Navigation />
         </div>
       )}
@@ -49,7 +50,6 @@ const App = () => {
         <Route path="/word" element={<WordForm />} />
         <Route path="/register" element={<Register />} />
         <Route path="/play" element={<Play />} />
-        <Route path="/game" element={<Game />} />
       </Routes>
     </div>
   );

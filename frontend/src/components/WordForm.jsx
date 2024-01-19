@@ -1,6 +1,7 @@
-import { useState, useEffect } from "react";
+// WordForm.jsx
+import { useState } from "react";
 import axios from "axios";
-import { useTokenContext } from "../TokenContext";
+import { Select, MenuItem, Button, TextField, Typography } from "@mui/material";
 
 const WordForm = () => {
   const [language, setLanguage] = useState("finnish"); // Default language
@@ -42,28 +43,29 @@ const WordForm = () => {
     <div>
       {isAdmin && (
         <div>
-          <h2>Add New Word</h2>
+          <Typography variant="h2">Add New Word</Typography>
           <form onSubmit={handleSubmit}>
-            <select
+            <Select
               value={language}
               onChange={(e) => setLanguage(e.target.value)}
+              label="Select Language"
             >
-              <option value="finnish">Finnish</option>
-              <option value="english">English</option>
-            </select>
-            <input
+              <MenuItem value="finnish">Finnish</MenuItem>
+              <MenuItem value="english">English</MenuItem>
+            </Select>
+            <TextField
               type="text"
               placeholder="Enter word"
               value={word}
               onChange={(e) => setWord(e.target.value)}
             />
-            <button type="submit">Add</button>
+            <Button type="submit">Add</Button>
           </form>
         </div>
       )}
       {!isAdmin && (
         <div>
-          <h2>Only admin can add new words</h2>
+          <Typography variant="h2">Only admin can add new words</Typography>
         </div>
       )}
     </div>

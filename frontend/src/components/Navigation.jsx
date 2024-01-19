@@ -1,40 +1,52 @@
+// Navigation.jsx
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { useState } from "react";
-import "../styles.css";
+import AppBar from "@mui/material/AppBar";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import IconButton from "@mui/material/IconButton";
+import MenuIcon from "@mui/icons-material/Menu";
+import Drawer from "@mui/material/Drawer";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
 
 const Navigation = () => {
-  const [active, setActive] = useState(false);
+  const [drawerOpen, setDrawerOpen] = useState(false);
+
   return (
     <div>
-      <nav className="navbar">
-        <div
-          className="hamburger-menu"
-          onClick={() => {
-            setActive(!active);
-            const menu = document.querySelector(".menu");
-            if (active) {
-              menu.className = "menu active";
-            } else {
-              menu.className = "menu";
-            }
-          }}
-        >
-          <div className="bar"></div>
-          <div className="bar"></div>
-          <div className="bar"></div>
-        </div>
-        <ul className="menu">
-          <li>
+      <AppBar position="static">
+        <Toolbar>
+          <IconButton
+            edge="start"
+            color="inherit"
+            aria-label="menu"
+            onClick={() => setDrawerOpen(true)}
+          >
+            <MenuIcon />
+          </IconButton>
+          <Typography variant="h6" component="div">
+            Learn Languages
+          </Typography>
+        </Toolbar>
+      </AppBar>
+      <Drawer
+        anchor="left"
+        open={drawerOpen}
+        onClose={() => setDrawerOpen(false)}
+      >
+        <List>
+          <ListItem>
             <Link to="showwords">Home</Link>
-          </li>
-          <li>
+          </ListItem>
+          <ListItem>
             <Link to="word">Add vocabulary</Link>
-          </li>
-          <li>
+          </ListItem>
+          <ListItem>
             <Link to="play">Play</Link>
-          </li>
-        </ul>
-      </nav>
+          </ListItem>
+        </List>
+      </Drawer>
     </div>
   );
 };

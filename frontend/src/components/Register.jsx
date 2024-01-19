@@ -1,5 +1,11 @@
+// Register.jsx
 import React, { useState } from "react";
 import registerService from "../services/register";
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
+import Container from "@mui/material/Container";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
 
 const Register = () => {
   const [username, setUsername] = useState("");
@@ -37,58 +43,82 @@ const Register = () => {
   };
 
   return (
-    <div>
-      <h2>Register</h2>
-      <form onSubmit={handleRegister}>
-        <div>
-          username
-          <input
-            type="text"
+    <Container component="main" maxWidth="xs">
+      <Box
+        sx={{
+          marginTop: 8,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        <Typography component="h1" variant="h5">
+          Register
+        </Typography>
+        <Box
+          component="form"
+          onSubmit={handleRegister}
+          sx={{ mt: 3, width: "100%" }}
+        >
+          <TextField
+            margin="normal"
+            required
+            fullWidth
             id="username"
+            label="Username"
+            name="username"
+            autoComplete="username"
+            autoFocus
             value={username}
-            name="Username"
-            onChange={({ target }) => setUsername(target.value)}
+            onChange={(e) => setUsername(e.target.value)}
           />
-        </div>
-        <div>
-          password
-          <input
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            name="password"
+            label="Password"
             type="password"
             id="password"
+            autoComplete="current-password"
             value={password}
-            name="Password"
-            onChange={({ target }) => setPassword(target.value)}
+            onChange={(e) => setPassword(e.target.value)}
           />
-        </div>
-        <div>
-          name
-          <input
-            type="text"
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            name="name"
+            label="Name"
             id="name"
             value={name}
-            name="Name"
-            onChange={({ target }) => setName(target.value)}
+            onChange={(e) => setName(e.target.value)}
           />
-        </div>
-        <div>
-          email
-          <input
-            type="text"
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            name="email"
+            label="Email"
             id="email"
             value={email}
-            name="Email"
-            onChange={({ target }) => setEmail(target.value)}
+            onChange={(e) => setEmail(e.target.value)}
           />
-        </div>
-        <button type="submit" id="register-button">
-          register
-        </button>
-      </form>
-      <div>
-        <p>{success}</p>
-        <p>{error}</p>
-      </div>
-    </div>
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            sx={{ mt: 3, mb: 2 }}
+          >
+            Register
+          </Button>
+        </Box>
+        <Box>
+          <p>{success}</p>
+          <p>{error}</p>
+        </Box>
+      </Box>
+    </Container>
   );
 };
 

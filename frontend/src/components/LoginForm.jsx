@@ -1,8 +1,14 @@
+// LoginForm.jsx
 import { useState } from "react";
 import loginService from "../services/login";
 import languagesService from "../services/languages";
 import { Link } from "react-router-dom";
 import { useTokenContext } from "../TokenContext";
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
+import Container from "@mui/material/Container";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
 
 const LoginForm = () => {
   const [username, setUsername] = useState("");
@@ -42,35 +48,59 @@ const LoginForm = () => {
   };
 
   return (
-    <div>
-      <h2>Log in to application</h2>
-      <form onSubmit={handleLogin}>
-        <div>
-          username
-          <input
-            type="text"
+    <Container component="main" maxWidth="xs">
+      <Box
+        sx={{
+          marginTop: 8,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        <Typography component="h1" variant="h5">
+          Log in to application
+        </Typography>
+        <Box
+          component="form"
+          onSubmit={handleLogin}
+          sx={{ mt: 3, width: "100%" }}
+        >
+          <TextField
+            margin="normal"
+            required
+            fullWidth
             id="username"
+            label="Username"
+            name="username"
+            autoComplete="username"
+            autoFocus
             value={username}
-            name="Username"
-            onChange={({ target }) => setUsername(target.value)}
+            onChange={(e) => setUsername(e.target.value)}
           />
-        </div>
-        <div>
-          password
-          <input
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            name="password"
+            label="Password"
             type="password"
             id="password"
+            autoComplete="current-password"
             value={password}
-            name="Password"
-            onChange={({ target }) => setPassword(target.value)}
+            onChange={(e) => setPassword(e.target.value)}
           />
-        </div>
-        <button type="submit" id="login-button">
-          login
-        </button>
-      </form>
-      <Link to="/register">Register</Link>
-    </div>
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            sx={{ mt: 3, mb: 2 }}
+          >
+            Log In
+          </Button>
+          <Link to="/register">Register</Link>
+        </Box>
+      </Box>
+    </Container>
   );
 };
 

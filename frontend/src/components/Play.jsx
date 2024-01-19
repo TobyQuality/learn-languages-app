@@ -1,5 +1,7 @@
-import { useState } from "react";
+// Play.jsx
+import { useState, useEffect } from "react";
 import axios from "axios";
+import { Button, TextField, Select, MenuItem, Typography } from "@mui/material";
 
 const Play = () => {
   const languages = ["finnish", "english"];
@@ -13,6 +15,8 @@ const Play = () => {
   const [wordToBeShown, setWordToBeShown] = useState("");
   const [time, setTime] = useState(10);
   const [turn, setTurn] = useState(0);
+  const [languageToLearn, setLanguageToLearn] = useState("finnish");
+  const [languageToShow, setLanguageToShow] = useState("english");
 
   const handlePlay = async (event) => {
     event.preventDefault();
@@ -28,11 +32,6 @@ const Play = () => {
       setTurn(0);
       setTime(10);
     }
-
-    let languageToLearn = document.getElementById("languages-to-learn").value;
-    let languageToShow = document.getElementById("languages-to-show").value;
-    console.log("LANGUAGE TO LEARN: ", languageToLearn);
-    console.log("LANGUAGE TO SHOW: ", languageToShow);
 
     if (languageToLearn === languageToShow) {
       setNotification("The languages are the same, change them to play");
@@ -68,10 +67,7 @@ const Play = () => {
       // if the index has not been used, then use it
       if (!findIndex) {
         let wordToShow = wordsForShowing[randomIndex];
-        let theValueOfTheForeignKey =
-          wordToShow[
-            document.getElementById("languages-to-learn").value + "_id"
-          ];
+        let theValueOfTheForeignKey = wordToShow[languageToLearn + "_id"];
         let wordToGuess = wordsForLearning.find(
           (word) => word.id === theValueOfTheForeignKey
         );
@@ -141,38 +137,52 @@ const Play = () => {
 
   return (
     <div>
-      <h2>Play</h2>
+      <Typography variant="h2">Play</Typography>
       <div>
-        <p>Score: </p>
+        <Typography variant="body1">Score: {score}</Typography>
       </div>
       <form onSubmit={handlePlay}>
-        <label for="language-to-learn">Choose a language to learn:</label>
-        <select name="languages-to-learn" id="languages-to-learn">
+        <label htmlFor="languages-to-learn">Choose a language to learn:</label>
+        <Select
+          name="languages-to-learn"
+          id="languages-to-learn"
+          value={languageToLearn}
+          onChange={(e) => setLanguageToLearn(e.target.value)}
+        >
           {languages.map((language) => (
-            <option value={language}>{language}</option>
+            <MenuItem key={language} value={language}>
+              {language}
+            </MenuItem>
           ))}
-        </select>
-        <label for="language-to-show">Choose a language to show:</label>
-        <select name="languages-to-show" id="languages-to-show">
+        </Select>
+        <label htmlFor="languages-to-show">Choose a language to show:</label>
+        <Select
+          name="languages-to-show"
+          id="languages-to-show"
+          value={languageToShow}
+          onChange={(e) => setLanguageToShow(e.target.value)}
+        >
           {languages.map((language) => (
-            <option value={language}>{language}</option>
+            <MenuItem key={language} value={language}>
+              {language}
+            </MenuItem>
           ))}
-        </select>
-        <button type="submit">Play</button>
+        </Select>
+        <Button type="submit">Play</Button>
       </form>
       {gameIsOn && (
         <div>
-          <p>{time}</p>
-          <p>{wordToBeShown.word}</p>
-          <p>SCORE: {score}</p>
+          <Typography variant="body1">{time}</Typography>
+          <Typography variant="body1">{wordToBeShown.word}</Typography>
+          <Typography variant="body1">SCORE: {score}</Typography>
           <form onSubmit={giveAnswer}>
-            <input type="text"></input>
-            <button type="submit">Answer</button>
+            <TextField type="text" variant="outlined" />
+            <Button type="submit">Answer</Button>
           </form>
         </div>
       )}
       <div>
-        <h3>{notification}</h3>
+        <Typography variant="h3">{notification}</Typography>
       </div>
     </div>
   );
