@@ -6,12 +6,12 @@ const database = require("../database/crudrepository");
 loginRouter.post("/", async (request, response) => {
   const { password, username } = request.body;
   console.log(request.body);
-  console.log("USERNAME: " + username);
-  console.log("PASSWORD: " + password);
 
   const user = await database.findUser(username);
+  let userInfo = user[0];
 
-  console.log("USERNAME: " + user[0].username);
+  console.log("THIS IS THE USER: ", user);
+
   const passwordCorrect =
     user === null
       ? false
@@ -32,7 +32,12 @@ loginRouter.post("/", async (request, response) => {
     expiresIn: 60 * 60,
   });
 
-  response.status(200).send({ token, username: user.username, id: user.id });
+  response.status(200).send({
+    token: token,
+    username: userInfo.username,
+    id: userInfo.id,
+    usertype: userInfo.usertype,
+  });
 });
 
 module.exports = loginRouter;

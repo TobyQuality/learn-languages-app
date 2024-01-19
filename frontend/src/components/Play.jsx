@@ -1,12 +1,3 @@
-// this component is used to display words and guess them in either Finnish or English.
-// There is a button to toggle between the two languages.
-// The player has ten seconds to guess the word.
-// If the player guesses correctly, he will be awarded a point.
-// If the player guesses incorrectly, the correct answer will be displayed.
-// There is randomly generated word from the list of words that the player has added to their list of words to learn.
-// There will be ten words in total.
-// The player can see how many words he has guessed correctly.
-
 import { useState } from "react";
 import axios from "axios";
 
@@ -67,20 +58,7 @@ const Play = () => {
     }
   };
 
-  /*
-    TODO:
-    Sana tulee hakea siten, että sillä on vierasavaimena indeksi,
-    joka vastaa arvattavan kielen sanan indeksiä.
-
-    Kun ajastin on päällä, on pelaajalla 10 sekuntia aikaa arvata sana.
-    Jos pelaaja arvaa oikein, hän saa pisteen.
-    Jos pelaaja arvaa väärin, hän ei saa pistettä.
-    Kun pelaaja on antanut vastauksen tai aika loppuu, tulee uusi sana.
-
-    Kun kaikki sanat on arvattu, peli loppuu ja pelaaja näkee pistemääränsä.
-  */
-
-  const randomizeWord = async () => {
+  const randomizeWord = () => {
     let uniqueWord = false;
     while (!uniqueWord) {
       // get a random index

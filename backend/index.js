@@ -10,7 +10,7 @@ const cors = require("cors");
 app.use(express.json());
 app.use(cors());
 app.use(middleware.tokenExtractor);
-app.use("/api/languages", languagesRouter);
+app.use("/api/languages", middleware.userExtractor, languagesRouter);
 app.use("/api/login", loginRouter);
 app.use("/api/users", usersRouter);
 

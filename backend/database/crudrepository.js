@@ -134,7 +134,7 @@ const database = {
   alterTable: async () => {
     return new Promise((resolve, reject) => {
       pool.query(
-        `ALTER TABLE english ADD FOREIGN KEY(finnish_id) REFERENCES finnish(id)`,
+        `ALTER TABLE users ADD FOREIGN KEY(finnish_id) REFERENCES finnish(id)`,
         (error, result) => {
           if (error) {
             reject(error);
@@ -144,10 +144,24 @@ const database = {
       );
     });
   },
-  insertTestUser: async (username, password) => {
+  // this code requires to be modified by individual needs
+  changeUserInformation: async () => {
     return new Promise((resolve, reject) => {
       pool.query(
-        `INSERT INTO users (username, passwordhash, usertype) VALUES (?, ?, 'admin')`,
+        `UPDATE users SET usertype = 'admin' WHERE username = 'admin'`,
+        (error, result) => {
+          if (error) {
+            reject(error);
+          }
+          resolve(`${result} changed user information`);
+        }
+      );
+    });
+  },
+  insertTestUser: async () => {
+    return new Promise((resolve, reject) => {
+      pool.query(
+        `INSERT INTO users (usertype) VALUES (?, ?, 'admin') `,
         (error, result) => {
           if (error) {
             reject(error);

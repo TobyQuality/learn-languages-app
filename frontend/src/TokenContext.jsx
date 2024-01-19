@@ -4,6 +4,7 @@ const initialState = {
   token: null,
   username: null,
   id: null,
+  usertype: null,
 };
 
 const tokenReducer = (state, action) => {
@@ -14,6 +15,8 @@ const tokenReducer = (state, action) => {
       return { ...state, username: action.payload };
     case "SET_ID":
       return { ...state, id: action.payload };
+    case "SET_USERTYPE":
+      return { ...state, usertype: action.payload };
     default:
       return state;
   }
@@ -21,16 +24,18 @@ const tokenReducer = (state, action) => {
 
 const TokenContext = createContext();
 
-export const tokenContextProvider = ({ children }) => {
+export const TokenContextProvider = (props) => {
   const [tokenState, tokenDispatch] = useReducer(tokenReducer, initialState);
 
   return (
     <TokenContext.Provider value={{ tokenState, tokenDispatch }}>
-      {children}
+      {props.children}
     </TokenContext.Provider>
   );
 };
 
-export const useTokenContext = () => useContext(TokenContext);
+export const useTokenContext = () => {
+  return useContext(TokenContext);
+};
 
 export default TokenContext;

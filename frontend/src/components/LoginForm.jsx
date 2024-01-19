@@ -2,10 +2,12 @@ import { useState } from "react";
 import loginService from "../services/login";
 import languagesService from "../services/languages";
 import { Link } from "react-router-dom";
+import { useTokenContext } from "../TokenContext";
 
 const LoginForm = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const { tokenState, tokenDispatch } = useTokenContext();
 
   const handleLogin = async (event) => {
     event.preventDefault();
@@ -15,7 +17,18 @@ const LoginForm = () => {
         password,
       });
 
+      console.log("USER: ", user);
+
       window.localStorage.setItem("loggedUser", JSON.stringify(user));
+
+      tokenDispatch({ type: "SET_TOKEN", payload: user.token });
+      tokenDispatch({ type: "SET_USERNAME", payload: user.username });
+      tokenDispatch({ type: "SET_ID", payload: user.id });
+      tokenDispatch({ type: "SET_USERTYPE", payload: user.usertype });
+
+      setTimeout(() => {
+        console.log("User: ", tokenState);
+      }, 1000);
 
       languagesService.setToken(user.token);
       if (user) {
