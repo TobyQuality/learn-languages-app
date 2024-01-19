@@ -1,6 +1,14 @@
 const database = require("../database/crudrepository");
 const jwt = require("jsonwebtoken");
 
+/**
+ * Middleware to extract the token from the request's authorization header.
+ * @function
+ * @name tokenExtractor
+ * @param {Object} request - Express request object.
+ * @param {Object} response - Express response object.
+ * @param {Function} next - Express next middleware function.
+ */
 const tokenExtractor = (request, response, next) => {
   const authorization = request.get("authorization");
   if (authorization && authorization.toLowerCase().startsWith("bearer ")) {
@@ -10,7 +18,15 @@ const tokenExtractor = (request, response, next) => {
   next();
 };
 
-//always used after tokenExtractor, else it won't work
+/**
+ * Middleware to extract user information based on the decoded token.
+ * This should always be used after tokenExtractor.
+ * @function
+ * @name userExtractor
+ * @param {Object} request - Express request object.
+ * @param {Object} response - Express response object.
+ * @param {Function} next - Express next middleware function.
+ */
 const userExtractor = async (request, response, next) => {
   if (request.method === "POST" || request.method === "DELETE") {
     const token = request.token;

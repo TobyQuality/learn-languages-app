@@ -1,8 +1,20 @@
 const mysql = require("mysql");
 
-// create a  MySQL pool object
+/**
+ * Create a MySQL pool object.
+ * @typedef {Object} MySQLPool
+ * @property {function} query - Function to execute SQL queries.
+ */
+
+/**
+ * @type {MySQLPool}
+ */
 require("dotenv").config();
 
+/**
+ * Represents a connection pool to a MySQL database.
+ * @type {Object}
+ */
 var pool = mysql.createPool({
   connectionLimit: 10,
   host: process.env.host,
@@ -11,7 +23,30 @@ var pool = mysql.createPool({
   database: process.env.database,
 });
 
-// create an object that contains pool functions
+/**
+ * An object that contains functions related to database operations.
+ * @typedef {Object} Database
+ * @property {function} findAll - Function to retrieve all records from a table.
+ * @property {function} saveWord - Function to save a new word to the database.
+ * @property {function} saveUser - Function to save a new user to the database.
+ * @property {function} deleteById - Function to delete a record by its ID.
+ * @property {function} findById - Function to retrieve a record by its ID.
+ * @property {function} findUsers - Function to retrieve all users.
+ * @property {function} findUser - Function to retrieve a user by username.
+ * @property {function} findUserById - Function to retrieve a user by ID.
+ * @property {function} createTable - Function to create a new table.
+ * @property {function} alterTable - Function to alter an existing table.
+ * @property {function} changeUserInformation - Function to change user information.
+ * @property {function} insertTestUser - Function to insert a test user.
+ * @property {function} describeTable - Function to describe the structure of a table.
+ * @property {function} joinLanguages - Function to perform an inner join between two tables.
+ * @property {function} insertToTableLanguageForeignKey - Function to insert a foreign key into a table.
+ * @property {function} updateForeignKey - Function to update a foreign key.
+ */
+
+/**
+ * @type {Database}
+ */
 const database = {
   // function to save a new word to the database
   findAll: async (language) => {

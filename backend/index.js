@@ -7,13 +7,48 @@ const port = 8080;
 const app = express();
 const cors = require("cors");
 
+/**
+ * Middleware to parse incoming JSON requests.
+ * @name express.json
+ * @function
+ */
 app.use(express.json());
+/**
+ * Middleware to enable Cross-Origin Resource Sharing (CORS).
+ * @name cors
+ * @function
+ */
 app.use(cors());
+/**
+ * Middleware to extract the token from the request's authorization header.
+ * @name tokenExtractor
+ * @function
+ */
 app.use(middleware.tokenExtractor);
+/**
+ * Routes handling language-related endpoints.
+ * @name languagesRouter
+ * @type {express.Router}
+ */
 app.use("/api/languages", languagesRouter);
+/**
+ * Routes handling login-related endpoints.
+ * @name loginRouter
+ * @type {express.Router}
+ */
 app.use("/api/login", loginRouter);
+/**
+ * Routes handling user-related endpoints.
+ * @name usersRouter
+ * @type {express.Router}
+ */
 app.use("/api/users", usersRouter);
 
+/**
+ * Express application listening on the specified port.
+ * @name app
+ * @type {express.Application}
+ */
 const server = app
   .listen(port, () => {
     console.log(`Server listening on port ${port}`);
@@ -23,6 +58,11 @@ const server = app
     process.exit(1);
   });
 
+/**
+ * Handles graceful shutdown of the server and associated resources.
+ * @function
+ * @name gracefulShutdown
+ */
 const gracefulShutdown = () => {
   console.log("Starting graceful shutdown...");
   // Close the server

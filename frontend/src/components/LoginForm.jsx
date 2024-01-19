@@ -10,11 +10,19 @@ import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 
+/**
+ * Component for handling user login.
+ * @returns {JSX.Element} - Login form JSX element.
+ */
 const LoginForm = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const { tokenState, tokenDispatch } = useTokenContext();
 
+  /**
+   * Handles the login form submission.
+   * @param {Event} event - Form submission event.
+   */
   const handleLogin = async (event) => {
     event.preventDefault();
     try {

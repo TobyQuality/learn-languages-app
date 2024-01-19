@@ -1,8 +1,12 @@
 // Play.jsx
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import axios from "axios";
 import { Button, TextField, Select, MenuItem, Typography } from "@mui/material";
 
+/**
+ * Component for the language learning game.
+ * @returns {JSX.Element} - Play component JSX element.
+ */
 const Play = () => {
   const languages = ["finnish", "english"];
   let usedIndexes = [];
@@ -18,6 +22,10 @@ const Play = () => {
   const [languageToLearn, setLanguageToLearn] = useState("finnish");
   const [languageToShow, setLanguageToShow] = useState("english");
 
+  /**
+   * Handles the start of the language learning game.
+   * @param {Event} event - Form submit event.
+   */
   const handlePlay = async (event) => {
     event.preventDefault();
 
@@ -57,6 +65,9 @@ const Play = () => {
     }
   };
 
+  /**
+   * Randomizes a new word for the game.
+   */
   const randomizeWord = () => {
     let uniqueWord = false;
     while (!uniqueWord) {
@@ -87,6 +98,10 @@ const Play = () => {
     }
   };
 
+  /**
+   * Handles player's answer submission.
+   * @param {Event} event - Form submit event.
+   */
   const giveAnswer = (event) => {
     event.preventDefault();
     // force players answer to lowercase

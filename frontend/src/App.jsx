@@ -9,10 +9,28 @@ import Register from "./components/Register";
 import Play from "./components/Play";
 import { Button, Typography } from "@mui/material";
 
+/**
+ * The main application component representing the entire application structure.
+ * @component
+ * @name App
+ * @returns {JSX.Element} The rendered JSX element of the application.
+ */
 const App = () => {
+  /**
+   * State variable to manage the user's authentication status.
+   * @type {Object | null}
+   */
   const [user, setUser] = useState(null);
+  /**
+   * Object containing parameters extracted from the current URL path.
+   * @type {Object}
+   */
   const { id } = useParams();
 
+  /**
+   * Effect hook to run the authentication check when the component mounts.
+   * Retrieves the user from local storage if available.
+   */
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem("loggedUser");
     if (loggedUserJSON) {
@@ -24,9 +42,11 @@ const App = () => {
     }
   }, []);
 
-  // when user logs out, clear the local storage and set the user to null
-  // also set the token to an empty string
-  // and redirect to the login page
+  /**
+   * Function to handle user logout.
+   * Clears local storage, sets user to null, sets the token to an empty string,
+   * and redirects to the login page.
+   */
   const logout = () => {
     window.localStorage.clear();
     setUser(null);

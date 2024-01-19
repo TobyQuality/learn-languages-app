@@ -3,12 +3,20 @@ import { useState } from "react";
 import axios from "axios";
 import { Select, MenuItem, Button, TextField, Typography } from "@mui/material";
 
+/**
+ * Component for adding new words to the application.
+ * @returns {JSX.Element} - WordForm component JSX element.
+ */
 const WordForm = () => {
   const [language, setLanguage] = useState("finnish"); // Default language
   const [word, setWord] = useState("");
 
   const storedUser = window.localStorage.getItem("loggedUser");
 
+  /**
+   * Handles the form submission to add a new word.
+   * @param {Event} e - Form submit event.
+   */
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
@@ -29,6 +37,10 @@ const WordForm = () => {
   const usertype = storedUser ? JSON.parse(storedUser).usertype : null;
   console.log("USERTYPE:", usertype);
 
+  /**
+   * Checks if the user is an admin.
+   * @returns {boolean} - True if user is admin, false otherwise.
+   */
   const checkAdmin = () => {
     if (usertype === "admin") {
       return true;

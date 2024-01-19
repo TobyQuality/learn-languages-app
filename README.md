@@ -67,3 +67,7 @@ This project is licensed under the MIT License.
 ### Acknowledgements
 
 Special thanks to Jussi Pohjolainen for his excellent guidance in coding!
+
+### Video link
+
+https://youtu.be/rlaWWuQnfL8

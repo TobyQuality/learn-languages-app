@@ -10,6 +10,10 @@ import Drawer from "@mui/material/Drawer";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 
+/**
+ * Component for rendering navigation bar with a side drawer.
+ * @returns {JSX.Element} - Navigation bar JSX element.
+ */
 const Navigation = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
 
