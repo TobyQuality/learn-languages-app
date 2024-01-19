@@ -32,3 +32,38 @@ This project is a language learning application that allows users to learn Finni
    ```bash
    git clone <repository-url>
    ```
+2. Navigate to the project directory:
+   ```bash
+   cd learn-languages-app
+   ```
+3. Install dependencies
+   ```bash
+   npm install
+   ```
+4. Set up MySQL database:
+   ```bash
+   Create a MySQL database and configure the connection in the server configuration.
+   ```
+5. Run the application:
+   ```bash
+   npm start
+   ```
+
+### Usage
+
+1. Register a user account
+2. Log in with your credentials.
+3. Add new words to the vocabulary if you are an admin.
+4. Play the language learning game to practice vocabulary.
+
+### Contribution
+
+Contributions are welcome! Please follow the Contribution Guidelines.
+
+### License
+
+This project is licensed under the MIT License.
+
+### Acknowledgements
+
+Special thanks to Jussi Pohjolainen for his excellent guidance in coding!
