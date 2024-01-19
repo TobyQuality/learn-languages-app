@@ -31,14 +31,6 @@ export const tokenContextProvider = ({ children }) => {
   );
 };
 
-export const useTokenValue = () => {
-  const stateAndDispatch = useContext(TokenContext);
-  return stateAndDispatch[0];
-};
-
-export const useTokenDispatch = () => {
-  const stateAndDispatch = useContext(TokenContext);
-  return stateAndDispatch[1];
-};
+export const useTokenContext = () => useContext(TokenContext);
 
 export default TokenContext;

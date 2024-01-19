@@ -8,7 +8,7 @@ content-Type: application/json
 {"word": "cat"}
 
 ###
-delete http://localhost:8080/api/languages/finnish/
+delete http://localhost:8080/api/languages/finnish/9
 
 ###
 post http://localhost:8080/api/users/

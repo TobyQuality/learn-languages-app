@@ -8,8 +8,16 @@ languagesRouter.get("/:language", async (req, res) => {
   return res.json(words);
 });
 
+languagesRouter.get("/join/:language1/:language2", async (req, res) => {
+  const words = await database.joinLanguages(
+    req.params.language1,
+    req.params.language2
+  );
+  return res.json(words);
+});
+
 languagesRouter.post("/:language", async (req, res) => {
-  const newWord = await database.save(req.params.language, req.body.word);
+  const newWord = await database.saveWord(req.params.language, req.body.word);
   return res.status(201).json(newWord);
 });
 

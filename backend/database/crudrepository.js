@@ -170,7 +170,7 @@ const database = {
   joinLanguages: async (language1, language2) => {
     return new Promise((resolve, reject) => {
       pool.query(
-        `SELECT * FROM ${language1} INNER JOIN ${language2} ON ${language1}.id = ${language2}.${language1}_id`,
+        `SELECT * FROM ${language1} INNER JOIN ${language2} ON ${language1}.${language2}_id = ${language2}.id`,
         (error, result) => {
           if (error) {
             reject(error);
@@ -190,6 +190,19 @@ const database = {
             reject(error);
           }
           resolve(`${result} inserted to ${language1} table`);
+        }
+      );
+    });
+  },
+  updateForeignKey: async () => {
+    return new Promise((resolve, reject) => {
+      pool.query(
+        `UPDATE english SET finnish_id = 8 WHERE id = 3`,
+        (error, result) => {
+          if (error) {
+            reject(error);
+          }
+          resolve(`${result}`);
         }
       );
     });

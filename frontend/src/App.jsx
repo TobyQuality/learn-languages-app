@@ -6,6 +6,7 @@ import LoginForm from "./components/LoginForm";
 import languagesService from "./services/languages";
 import Register from "./components/Register";
 import Play from "./components/Play";
+import Game from "./components/Game";
 
 const App = () => {
   const [user, setUser] = useState(null);
@@ -48,6 +49,7 @@ const App = () => {
         <Route path="/word" element={<WordForm />} />
         <Route path="/register" element={<Register />} />
         <Route path="/play" element={<Play />} />
+        <Route path="/game" element={<Game />} />
       </Routes>
     </div>
   );

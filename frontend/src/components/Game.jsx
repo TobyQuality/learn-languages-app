@@ -5,25 +5,7 @@ const Game = (languagetolearn, languagetoshow) => {
   const [languageToShow, setLanguageToShow] = useState(languagetoshow);
   const [wordsForLearning, setWordsForLearning] = useState([]);
   const [wordsForShowing, setWordsForShowing] = useState([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      let response = await axios.get(
-        `http://localhost:8000/api/languages/${languageToLearn}`
-      );
-      setWordsForLearning(response.data);
-      response = await axios.get(
-        `http://localhost:8000/api/languages/${languageToShow}`
-      );
-      setWordsForShowing(response.data);
-      setLoading(false);
-    };
-    fetchData();
-  }, []);
-
-  if (loading) {
-    return <div>Loading...</div>;
-  }
+  const [joinLanguages, setJoinLanguages] = useState("");
 
   return (
     <div>
